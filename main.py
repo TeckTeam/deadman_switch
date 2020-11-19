@@ -6,7 +6,6 @@ import time
 import os
 import socket
 
-
 class deadman:
     def __init__(self):
         self.buffer = 64*1024
