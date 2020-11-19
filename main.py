@@ -2,6 +2,7 @@ import pyAesCrypt
 from threading import Thread
 import glob
 from tqdm import tqdm
+import time
 import os
 import socket
 
@@ -17,6 +18,7 @@ class deadman:
             exit()
         self.path = "./files/"
         self.found = False
+        self.sleeptime = 3
         self.switch()
     def encrypt(self, file):
         if file != "" and self.passwd != "" and ".encrypt" not in file:
@@ -52,6 +54,7 @@ class deadman:
 
 
     def switch(self):
+        self.sleeptime = self.sleeptime * self.sleeptime
         try:
             print("Start switch")
             self.serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -94,9 +97,10 @@ class deadman:
                 self.passwd = "Heksdkjsfhjsdafkasghdfsdbhcfsjgdhfnxshd"
                 del(self.passwd)
             print("Shutdown switch")
-        #except:
-            #self.switch()
-            #pass
+        except:
+            time.sleep(self.sleeptime)
+            self.switch()
+            
 d = deadman()
 
 
